@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".DiagnosticApplication"
+        android:allowBackup="true"
+        android:largeHeap="true"
+        android:label="峻爸 AI Transcriber"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="false">
+
+        <!-- Tiny safe shell: no scrollbars/native engine. It automatically opens FullTranscriberActivity. -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:screenOrientation="unspecified">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Full feature UI stays isolated so a future engine crash cannot kill the safe shell. -->
+        <activity
+            android:name=".FullTranscriberActivity"
+            android:exported="false"
+            android:process=":full_transcriber"
+            android:screenOrientation="unspecified" />
+    </application>
+</manifest>

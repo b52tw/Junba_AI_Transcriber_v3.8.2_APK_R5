@@ -1,0 +1,17 @@
+R5 confirmed startup crash root cause
+=====================================
+Captured 2026-10-05 from vivo V2413, Android 16 / SDK 36:
+
+java.lang.NullPointerException: Attempt to invoke virtual method
+'android.widget.ScrollBarDrawable android.widget.ScrollBarDrawable.mutate()'
+on a null object reference
+ at android.view.View.onDrawScrollBars(View.java:22910)
+ ...
+ at android.widget.ScrollView.draw(ScrollView.java:2199)
+ ...
+ at android.view.ThreadedRenderer.draw(...)
+
+This proves the observed startup crash was in framework scrollbar drawing,
+not Gemini API, Whisper inference, FFmpegKit, API Key, or audio processing.
+
+R5 deliberately avoids drawing framework scrollbars in the startup/full UI.
